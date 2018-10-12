@@ -1,0 +1,24 @@
+﻿@using QEQ1.Models
+@model  Usuario
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2>Login</h2>
+<br />
+    @using (Html.BeginForm("Login", "QEQ", FormMethod.Post))
+    {
+        @Html.LabelFor(x => x.Email)
+        @Html.TextBoxFor(x => x.Email) @Html.ValidationMessageFor(x => x.Email)
+        <br />
+        @Html.LabelFor(x => x.Contraseña)
+        @Html.TextBoxFor(x => x.Contraseña) @Html.ValidationMessageFor(x => x.Contraseña)
+        <br />
+
+        <input type="submit" value="Loguearme" />
+    }
+
+
+
+
+
