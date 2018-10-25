@@ -26,6 +26,8 @@ namespace QEQ1.Controllers
         {
             return View();
         }
+
+        
         [HttpPost]
         public ActionResult Funciono(Usuario x)
         {
