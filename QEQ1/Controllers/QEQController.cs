@@ -18,6 +18,14 @@ namespace QEQ1.Controllers
         {
             return View();
         }
+        public ActionResult About()
+        {
+            return View();
+        }
+        public ActionResult Instrucciones()
+        {
+            return View();
+        }
         [HttpPost]
         public ActionResult Funciono(Usuario x)
         {

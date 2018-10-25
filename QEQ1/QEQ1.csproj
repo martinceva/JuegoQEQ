@@ -273,6 +273,8 @@
     <Content Include="Views\QEQ\Index.cshtml" />
     <Content Include="Views\QEQ\Login.cshtml" />
     <Content Include="Views\QEQ\Funciono.cshtml" />
+    <Content Include="Views\QEQ\About.cshtml" />
+    <Content Include="Views\QEQ\Instrucciones.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

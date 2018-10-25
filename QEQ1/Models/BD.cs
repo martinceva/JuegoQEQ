@@ -44,6 +44,7 @@ namespace QEQ1.Models
             desconectar(conexion);
             return x;
         }
+        
         public static bool InsertarCategoria(Categorias t)
         {
             bool a = false;
@@ -125,5 +126,6 @@ namespace QEQ1.Models
             desconectar(conexion);
             return Obtener;
         }
+        
     }
 }
