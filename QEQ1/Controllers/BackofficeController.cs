@@ -13,7 +13,7 @@ namespace QEQ1.Controllers
         {
             return View();
         }
-        [HttpPost]
+        
         public ActionResult EdicionCategoria(string Accion, int Id)
         {
             ViewBag.Accion = Accion;
@@ -33,6 +33,27 @@ namespace QEQ1.Controllers
             }
             return View("EdicionCategoria");
         }
+        [HttpPost]
+        public ActionResult EdicionCategoria(Categorias ct, string Accion)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("EdicionCategoria");
+            }
+            else
+            {
+                if (Accion == "Obtener")
+                {
+                    BD.ModificarCategoria(ct);
+                }
+                else
+                {
+                    BD.InsertarCategoria(ct);
+                }
+                ViewBag.Trabajadores = BD.ListarCategorias();
+                return View("Index");
+            }
 
+        }
     }
 }
