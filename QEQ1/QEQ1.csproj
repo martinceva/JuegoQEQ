@@ -276,10 +276,13 @@
     <Content Include="Views\QEQ\Funciono.cshtml" />
     <Content Include="Views\QEQ\About.cshtml" />
     <Content Include="Views\QEQ\Instrucciones.cshtml" />
+    <Content Include="Views\Backoffice\EdicionCategoria.cshtml" />
+    <Content Include="Views\Backoffice\EdicionPersonaje.cshtml" />
+    <Content Include="Views\Backoffice\EdicionPreguntas.cshtml" />
+    <Content Include="Views\Backoffice\Menu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Backoffice\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -51,9 +51,18 @@ namespace QEQ1.Controllers
                     BD.InsertarCategoria(ct);
                 }
                 ViewBag.Trabajadores = BD.ListarCategorias();
-                return View("Index");
+                return View("EdicionCategoria");
             }
 
+        }
+
+        public ActionResult EdicionPersonaje()
+        {
+            return View();
+        }
+        public ActionResult EdicionPreguntas()
+        {
+            return View();
         }
     }
 }
