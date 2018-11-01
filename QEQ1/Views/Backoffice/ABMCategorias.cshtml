@@ -1,0 +1,27 @@
+﻿@using QEQ1.Models
+@model Categorias
+@{
+    ViewBag.Title = "ABMCategorias";
+}
+<body style="background-color:powderblue;">
+</body>
+<h2>ABMCategorias</h2>
+@using (Html.BeginForm("EdicionCategoria", "Backoffice", FormMethod.Post))
+{
+<tr>
+    <td> @Html.LabelFor(x => x.NombreCategoria)</td>
+    <td> @Html.TextBoxFor(x => x.NombreCategoria) </td>
+    <td> @Html.ValidationMessageFor(x => x.NombreCategoria)</td>
+    <input type="submit" value="Insertar categoria" />
+</tr>
+<table style="width:100%">
+    @foreach (Categorias ct in ViewBag.Categorias)
+    {
+    <tr>
+        <th>@ct.NombreCategoria</th>
+        <th>@Html.ActionLink("Eliminar", "EdicionCategoria", "Backoffice", new { Accion = "Eliminar", Id = ct.IDCategoria }, null)</th>
+        <th>@Html.ActionLink("Modificar", "EdicionCategoria", "Backoffice", new { Accion = "Obtener", Id = ct.IDCategoria }, null)</th>
+    </tr>
+    }
+</table>
+}

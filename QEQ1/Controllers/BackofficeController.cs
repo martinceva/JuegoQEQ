@@ -14,8 +14,15 @@ namespace QEQ1.Controllers
             return View();
         }
         
+        public ActionResult ABMCategorias(Categorias ct)
+        {
+            ViewBag.Categorias = BD.ListarCategorias();
+            return View();
+        }
+
         public ActionResult EdicionCategoria(string Accion, int Id)
         {
+            ViewBag.Categorias = BD.ListarCategorias();
             ViewBag.Accion = Accion;
             if (Accion == "Obtener")
             {
@@ -27,8 +34,8 @@ namespace QEQ1.Controllers
                 if (Accion == "Eliminar")
                 {
                     BD.EliminarCategoria(Id);
-                    ViewBag.Categorias = BD.ListarCategorias();
-                    return View("Index");
+                   
+                    return View("EdicionCategoria");
                 }
             }
             return View("EdicionCategoria");
