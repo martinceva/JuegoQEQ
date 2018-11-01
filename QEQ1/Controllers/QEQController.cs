@@ -26,6 +26,10 @@ namespace QEQ1.Controllers
         {
             return View();
         }
+        public ActionResult Register()
+        {
+            return View();
+        }
 
         
         [HttpPost]

@@ -126,6 +126,61 @@ namespace QEQ1.Models
             desconectar(conexion);
             return Obtener;
         }
-        
+
+        public static bool Registrarse(Usuario A)
+        {
+            bool a = false;
+            Usuario x = new Usuario();
+            SqlConnection conexion = conectar();
+            SqlCommand consulta = conexion.CreateCommand();
+            consulta.CommandText = "sp_InsertarUsuarios";
+            consulta.CommandType = System.Data.CommandType.StoredProcedure;
+            consulta.Parameters.AddWithValue("@pMail", A.Email);
+            consulta.Parameters.AddWithValue("@pContraseña", A.Contraseña);
+            consulta.Parameters.AddWithValue("@pNombre", A.NomUsuario);
+            consulta.Parameters.AddWithValue("@pRol", 0);
+            consulta.Parameters.AddWithValue("@pPuntaje", 0);
+            int regsAfectados = consulta.ExecuteNonQuery();
+            desconectar(conexion);
+            if (regsAfectados == 1)
+            {
+                a = true;
+            }
+            return a;
+        }
+        /*public static bool EliminarUsuario(int IDUsuario)
+        {
+            bool b = false;
+            SqlConnection conexion = conectar();
+            SqlCommand consulta = conexion.CreateCommand();
+            consulta.CommandText = "sp_EliminarUsuario";
+            consulta.CommandType = System.Data.CommandType.StoredProcedure;
+            consulta.Parameters.AddWithValue("@pId", IDUsuario);
+            int regsAfectados = consulta.ExecuteNonQuery();
+            desconectar(conexion);
+            if (regsAfectados == 1)
+            {
+                b = true;
+            }
+            return b;
+        }
+        public static bool ModificarUsuario(Usuario f)
+        {
+            bool c = false;
+            SqlConnection conexion = conectar();
+            SqlCommand consulta = conexion.CreateCommand();
+            consulta.CommandText = "sp_ModificarCategoria";
+            consulta.CommandType = System.Data.CommandType.StoredProcedure;
+            consulta.Parameters.AddWithValue("@pId", f.IDCategoria);
+            consulta.Parameters.AddWithValue("@pNombreCategoria", f.NombreCategoria);
+            int regsAfectados = consulta.ExecuteNonQuery();
+            desconectar(conexion);
+            if (regsAfectados == 1)
+            {
+                c = true;
+            }
+            return c;
+        }
+        */
     }
 }
