@@ -53,5 +53,10 @@ namespace QEQ1.Controllers
             }
         }
         
+        public ActionResult CuentaCreada()
+        {
+            return View("CuentaCreada")
+        }
+        
     }
 }
