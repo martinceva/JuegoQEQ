@@ -55,7 +55,14 @@ namespace QEQ1.Controllers
         
         public ActionResult CuentaCreada()
         {
-            return View("CuentaCreada")
+        if(!ModelState.IsValid)
+            {
+                return View("Register" );
+            }
+        else
+        {
+            return View("CuentaCreada");
+        }
         }
         
     }
