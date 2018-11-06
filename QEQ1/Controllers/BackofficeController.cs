@@ -35,7 +35,7 @@ namespace QEQ1.Controllers
                 {
                     BD.EliminarCategoria(Id);
                    
-                    return View("EdicionCategoria");
+                    return View("ABMCategorias");
                 }
             }
             return View("EdicionCategoria");

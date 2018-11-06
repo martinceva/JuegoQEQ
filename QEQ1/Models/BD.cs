@@ -113,7 +113,8 @@ namespace QEQ1.Models
         }
         public static Categorias ObtenerCategorias(int IDCategoria)
         {
-            Categorias Obtener = new Categorias(ID, Nom);
+            int x = 0;
+            String y = null;
             SqlConnection conexion = conectar();
             SqlCommand consulta = conexion.CreateCommand();
             consulta.CommandText = "sp_ObtenerCategorias";
@@ -123,13 +124,14 @@ namespace QEQ1.Models
             while (dataReader.Read())
             {
 
-                Obtener.ID =  Convert.ToInt32(dataReader["IDcategoria"]);
-                Obtener.Nom = (dataReader["NombreCategoria"].ToString());
+                x =  Convert.ToInt32(dataReader["IDcategoria"]);
+                y = (dataReader["NombreCategoria"].ToString());
             
 
-            }          
+            }
+            Categorias a = new Categorias(x, y);
             desconectar(conexion);
-            return Obtener;
+            return a;
         }
 
         public static bool Registrarse(Usuario A)
