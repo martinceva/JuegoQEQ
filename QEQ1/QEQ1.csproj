@@ -279,12 +279,9 @@
     <Content Include="Views\Backoffice\EdicionPersonaje.cshtml" />
     <Content Include="Views\Backoffice\EdicionPreguntas.cshtml" />
     <Content Include="Views\Backoffice\Menu.cshtml" />
-<<<<<<< HEAD
     <Content Include="Views\Backoffice\ABMCategorias.cshtml" />
     <Content Include="Views\Backoffice\EdicionCategoria.cshtml" />
-=======
     <Content Include="Views\QEQ\Register.cshtml" />
->>>>>>> da315d4853a52e310911a27ca315d7eda299c656
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
