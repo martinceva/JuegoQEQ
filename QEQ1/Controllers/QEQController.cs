@@ -46,18 +46,28 @@ namespace QEQ1.Controllers
                 if (a.Email != null)
                 {
                     Session["User"] = a;
-                    return View("Funciono");
+                    BD j = new BD();
+                    string rol = j.admin(a);
+                    if(rol == "Admin")
+                    {
+                        BackofficeController l = new BackofficeController();
+                        l.Menu();
+                    }
+                    else
+                    {
+                        return View("Funciono");
+                    }
                 }
                 ViewBag.EstaMal = "El usuario o la contraseña ingresados son incorrectas"; ; 
                 return View("Login");
             }
         }
         
-        public ActionResult CuentaCreada()
+        public ActionResult CuentaCreada(Usuario x)
         {
         if(!ModelState.IsValid)
             {
-                return View("Register" );
+                return View("Register",x);
             }
         else
         {

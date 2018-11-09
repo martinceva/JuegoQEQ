@@ -1,31 +1,33 @@
-﻿
+﻿@using QEQ1.Models
+@model  Usuario
 @{
-    ViewBag.Title = "Register";
-}
+                /**/
 
+                ViewBag.Title = "Register";
+}
 <h2>Complete el formulario para registrarse</h2>
 <br />
-    
+
 @using (Html.BeginForm("CuentaCreada", "QEQ", FormMethod.Post))
-    {
+{
 
-        <table style="width:50%">
-            <tr>
-
-                        <td> @Html.LabelFor(x => x.Email)</td>
-                        <td> @Html.TextBoxFor(x => x.Email)</td>
-                        <td> @Html.ValidationMessageFor(x => x.Email)</td>
-                </tr>
-            <tr>
-                <td> @Html.LabelFor(x => x.Contraseña) </td>
-                <td>@Html.PasswordFor(x => x.Contraseña)</td>
-                <td>@Html.ValidationMessageFor(x => x.Contraseña) </td>
-            </tr>
-            <tr>
-                <td> @Html.LabelFor(x => x.NomUsuario) </td>
-                <td>@Html.PasswordFor(x => x.NomUsuario)</td>
-                <td>@Html.ValidationMessageFor(x => x.NomUsuario) </td>
-            </tr>
-        </table>
-
+    <table style="width:50%">
+        <tr>
+            <td> @Html.LabelFor(x => x.Email)</td>
+            <td> @Html.TextBoxFor(x => x.Email)</td>
+            <td> @Html.ValidationMessageFor(x => x.Email)</td>
+        </tr>
+        <tr>
+            <td> @Html.LabelFor(x => x.Contraseña) </td>
+            <td>@Html.PasswordFor(x => x.Contraseña)</td>
+            <td>@Html.ValidationMessageFor(x => x.Contraseña) </td>
+        </tr>
+        <tr>
+            <td><p><strong>Nombre de usuario</strong></p></td>
+            <td>@Html.TextBoxFor(x => x.NomUsuario)</td>
+            <td>@Html.ValidationMessageFor(x => x.NomUsuario) </td>
+        </tr>
+    </table>
+    <p><input type="submit" value="Registrarme"/></p>
+}
 

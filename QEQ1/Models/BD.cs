@@ -155,6 +155,25 @@ namespace QEQ1.Models
             }
             return a;
         }
+
+        public string admin(Usuario a)
+        {
+            string rolusuario = "";
+            SqlConnection conexion = conectar();
+            SqlCommand consulta = conexion.CreateCommand();
+            consulta.CommandText = "sp_RolUsuario";
+            consulta.CommandType = System.Data.CommandType.StoredProcedure;
+            consulta.Parameters.AddWithValue("@pMail", a.Email);
+            consulta.Parameters.AddWithValue("@pContraseña", a.Contraseña);
+            SqlDataReader Lector = consulta.ExecuteReader();
+            if(Lector.Read() != null)
+            {
+                rolusuario = Lector.Read().ToString();
+            }
+            desconectar(conexion);
+            return rolusuario;
+        }
+
         /*public static bool EliminarUsuario(int IDUsuario)
         {
             bool b = false;
