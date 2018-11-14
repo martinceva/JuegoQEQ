@@ -1,4 +1,5 @@
-﻿
+﻿@using QEQ1.Models
+@model Usuario
 @{
     ViewBag.Title = "Register";
 }
@@ -7,7 +8,7 @@
 <br />
     
 @using (Html.BeginForm("CuentaCreada", "QEQ", FormMethod.Post))
-    {
+{
 
         <table style="width:50%">
             <tr>
@@ -26,6 +27,12 @@
                 <td>@Html.PasswordFor(x => x.NomUsuario)</td>
                 <td>@Html.ValidationMessageFor(x => x.NomUsuario) </td>
             </tr>
+            <tr>
+                <td>
+                <input type="submit" value="Finalizar" />
+                </td>
+            </tr>
         </table>
+}
 
 

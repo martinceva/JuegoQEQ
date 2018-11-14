@@ -282,6 +282,7 @@
     <Content Include="Views\Backoffice\ABMCategorias.cshtml" />
     <Content Include="Views\Backoffice\EdicionCategoria.cshtml" />
     <Content Include="Views\QEQ\Register.cshtml" />
+    <Content Include="Views\Backoffice\InsertarCategorias.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

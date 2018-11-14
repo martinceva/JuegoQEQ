@@ -19,8 +19,13 @@ namespace QEQ1.Controllers
             ViewBag.Categorias = BD.ListarCategorias();
             return View();
         }
+        public ActionResult InsertarCategorias(string Accion)
+        {
+            ViewBag.Accion = Accion;
+            return View();
+        }
 
-        public ActionResult EdicionCategoria(string Accion, int Id)
+        public ActionResult FormCategoria(string Accion, int Id)
         {
             ViewBag.Categorias = BD.ListarCategorias();
             ViewBag.Accion = Accion;
@@ -45,20 +50,28 @@ namespace QEQ1.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View("EdicionCategoria");
+                ViewBag.Categorias = BD.ListarCategorias();
+                return View("ABMCategorias");
             }
             else
             {
                 if (Accion == "Obtener")
                 {
                     BD.ModificarCategoria(ct);
+                    ViewBag.Categorias = BD.ListarCategorias();
+                    return View("ABMCategorias");
                 }
                 else
                 {
-                    BD.InsertarCategoria(ct);
+                    if (Accion == "Insertar")
+                    {
+                        BD.InsertarCategoria(ct);
+                        ViewBag.Categorias = BD.ListarCategorias();
+                        return View("ABMCategorias");
+                    }
                 }
-                ViewBag.Trabajadores = BD.ListarCategorias();
-                return View("EdicionCategoria");
+                ViewBag.Categorias = BD.ListarCategorias();
+                return View("ABMCategorias");
             }
 
         }

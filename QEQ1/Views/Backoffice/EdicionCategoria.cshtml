@@ -8,9 +8,10 @@
 @using (Html.BeginForm("EdicionCategoria", "Backoffice", FormMethod.Post))
 {
     <tr>
-        <td> @Html.LabelFor(x => x.NombreCategoria)</td>
-        <td> @Html.TextBoxFor(x => x.NombreCategoria) </td>
+        <td> @Html.Label("Nombre de la categoria")</td>
+        <td> @Html.TextBoxFor(x => x.NombreCategoria) @Html.HiddenFor(x => x.IDCategoria)</td>
         <td> @Html.ValidationMessageFor(x => x.NombreCategoria)</td>
+        <input type="hidden" value="@ViewBag.Accion" name="Accion" />
         <input type="submit" value="Modificar categoria" />
     </tr>
 }

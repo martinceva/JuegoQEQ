@@ -82,7 +82,7 @@ namespace QEQ1.Models
             bool c = false;
             SqlConnection conexion = conectar();
             SqlCommand consulta = conexion.CreateCommand();
-            consulta.CommandText = "sp_ModificarCategoria";
+            consulta.CommandText = "Sp_ModificarCategoria";
             consulta.CommandType = System.Data.CommandType.StoredProcedure;
             consulta.Parameters.AddWithValue("@pId", f.IDCategoria);
             consulta.Parameters.AddWithValue("@pNombreCategoria", f.NombreCategoria);
@@ -149,7 +149,7 @@ namespace QEQ1.Models
             consulta.Parameters.AddWithValue("@pPuntaje", 0);
             int regsAfectados = consulta.ExecuteNonQuery();
             desconectar(conexion);
-            if (regsAfectados == 1)
+            if (regsAfectados >= 1)
             {
                 a = true;
             }
