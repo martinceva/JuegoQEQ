@@ -1,0 +1,22 @@
+﻿@using QEQ1.Models
+@model Preguntas
+@{
+    ViewBag.Title = "ABMPreguntas";
+}
+
+<h2>ABMPreguntas</h2>
+
+@using (Html.BeginForm("FormPregunta", "Backoffice", FormMethod.Post))
+{
+    <th>@Html.ActionLink("Insertar Pregunta", "InsertarPreguntas", "Backoffice", new { Accion = "Insertar" }, null)</th>
+    <table style="width:100%">
+        @foreach (Preguntas pr in ViewBag.Preguntas)
+        {
+            <tr>
+                <th>@pr.TextoPregunta</th>
+                <th>@Html.ActionLink("Eliminar", "FormPregunta", "Backoffice", new { Accion = "Eliminar", Id = pr.IDPregunta }, null)</th>
+                <th>@Html.ActionLink("Modificar", "FormPregunta", "Backoffice", new { Accion = "Obtener", Id = pr.IDPregunta }, null)</th>
+            </tr>
+        }
+    </table>
+}

@@ -209,6 +209,7 @@
     <Compile Include="Models\Categorias.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Preguntas.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -277,12 +278,14 @@
     <Content Include="Views\QEQ\About.cshtml" />
     <Content Include="Views\QEQ\Instrucciones.cshtml" />
     <Content Include="Views\Backoffice\EdicionPersonaje.cshtml" />
-    <Content Include="Views\Backoffice\EdicionPreguntas.cshtml" />
     <Content Include="Views\Backoffice\Menu.cshtml" />
     <Content Include="Views\Backoffice\ABMCategorias.cshtml" />
     <Content Include="Views\Backoffice\EdicionCategoria.cshtml" />
     <Content Include="Views\QEQ\Register.cshtml" />
     <Content Include="Views\Backoffice\InsertarCategorias.cshtml" />
+    <Content Include="Views\Backoffice\ABMPreguntas.cshtml" />
+    <Content Include="Views\Backoffice\InsertarPreguntas.cshtml" />
+    <Content Include="Views\Backoffice\EdicionPreguntas.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -155,6 +155,29 @@ namespace QEQ1.Models
             }
             return a;
         }
+
+        public bool admin(int Id)
+        {
+            bool val = false;
+            SqlConnection conexion = conectar();
+            SqlCommand consulta = conexion.CreateCommand();
+            consulta.CommandText = "sp_ObtenerUsuarios";
+            consulta.CommandType = System.Data.CommandType.StoredProcedure;
+            consulta.Parameters.AddWithValue("@pIDusuario", Id);
+            SqlDataReader Lector = consulta.ExecuteReader();
+            Lector.Read();
+            if(Lector!=null)
+            {
+                string rolusuario = Lector["Rol"].ToString();
+                if(rolusuario == "Admin")
+                {
+                    val = true;
+                }
+            }
+            desconectar(conexion);
+            return val;
+        }
+   
         /*public static bool EliminarUsuario(int IDUsuario)
         {
             bool b = false;
@@ -189,5 +212,93 @@ namespace QEQ1.Models
             return c;
         }
         */
+        public static bool InsertarPregunta(Preguntas p)
+        {
+            bool a = false;
+            SqlConnection conexion = conectar();
+            SqlCommand consulta = conexion.CreateCommand();
+            consulta.CommandText = "sp_InsertarPreguntas";
+            consulta.CommandType = System.Data.CommandType.StoredProcedure;
+            consulta.Parameters.AddWithValue("@pTextoPregunta", p.TextoPregunta);
+            int regsAfectados = consulta.ExecuteNonQuery();
+            desconectar(conexion);
+            if (regsAfectados == 1)
+            {
+                a = true;
+            }
+            return a;
+        }
+        public static bool EliminarPregunta(int IDPregunta)
+        {
+            bool b = false;
+            SqlConnection conexion = conectar();
+            SqlCommand consulta = conexion.CreateCommand();
+            consulta.CommandText = "sp_EliminarPreguntas";
+            consulta.CommandType = System.Data.CommandType.StoredProcedure;
+            consulta.Parameters.AddWithValue("@pId", IDPregunta);
+            int regsAfectados = consulta.ExecuteNonQuery();
+            desconectar(conexion);
+            if (regsAfectados == 1)
+            {
+                b = true;
+            }
+            return b;
+        }
+        public static bool ModificarPregunta(Preguntas p)
+        {
+            bool c = false;
+            SqlConnection conexion = conectar();
+            SqlCommand consulta = conexion.CreateCommand();
+            consulta.CommandText = "Sp_ModificarPreguntas";
+            consulta.CommandType = System.Data.CommandType.StoredProcedure;
+            consulta.Parameters.AddWithValue("@pId", p.IDPregunta);
+            consulta.Parameters.AddWithValue("@pTextoPregunta", p.TextoPregunta);
+            int regsAfectados = consulta.ExecuteNonQuery();
+            desconectar(conexion);
+            if (regsAfectados == 1)
+            {
+                c = true;
+            }
+            return c;
+        }
+        public static List<Preguntas> ListarPreguntas()
+        {
+            List<Preguntas> listaPreguntas = new List<Preguntas>();
+            SqlConnection conexion = conectar();
+            SqlCommand consulta = conexion.CreateCommand();
+            consulta.CommandText = "sp_ListarPreguntas";
+            consulta.CommandType = System.Data.CommandType.StoredProcedure;
+            SqlDataReader dataReader = consulta.ExecuteReader();
+            while (dataReader.Read())
+            {
+                int IDPregunta = Convert.ToInt32(dataReader["IDPregunta"]);
+                string TextoPregunta = (dataReader["TextoPregunta"].ToString());
+                listaPreguntas.Add(new Preguntas(IDPregunta, TextoPregunta));
+            }
+            desconectar(conexion);
+            return listaPreguntas;
+        }
+        public static Preguntas ObtenerPreguntas(int IDPregunta)
+        {
+            int x = 0;
+            String y = null;
+            SqlConnection conexion = conectar();
+            SqlCommand consulta = conexion.CreateCommand();
+            consulta.CommandText = "sp_ObtenerPreguntas";
+            consulta.CommandType = System.Data.CommandType.StoredProcedure;
+            consulta.Parameters.AddWithValue("@pID", IDPregunta);
+            SqlDataReader dataReader = consulta.ExecuteReader();
+            while (dataReader.Read())
+            {
+
+                x = Convert.ToInt32(dataReader["IDpregunta"]);
+                y = (dataReader["TextoPregunta"].ToString());
+
+
+            }
+            Preguntas a = new Preguntas(x, y);
+            desconectar(conexion);
+            return a;
+        }
     }
 }

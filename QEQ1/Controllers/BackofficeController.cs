@@ -75,14 +75,69 @@ namespace QEQ1.Controllers
             }
 
         }
+        
+        
+         public ActionResult ABMPreguntas(Preguntas pr)
+        {
+            ViewBag.Preguntas = BD.ListarPreguntas();
+            return View();
+        }
+        public ActionResult InsertarPreguntas(string Accion)
+        {
+            ViewBag.Accion = Accion;
+            return View();
+        }
 
-        public ActionResult EdicionPersonaje()
+        public ActionResult FormPregunta(string Accion, int Id)
         {
-            return View();
+            ViewBag.Preguntas = BD.ListarPreguntas();
+            ViewBag.Accion = Accion;
+            if (Accion == "Obtener")
+            {
+                Preguntas pr = BD.ObtenerPreguntas(Id);
+                return View("EdicionPreguntas", pr);
+            }
+            else
+            {
+                if (Accion == "Eliminar")
+                {
+                    BD.EliminarPregunta(Id);
+                   
+                    return View("ABMPreguntas");
+                }
+            }
+            return View("EdicionPreguntas");
         }
-        public ActionResult EdicionPreguntas()
+        [HttpPost]
+        public ActionResult EdicionPreguntas(Preguntas pr, string Accion)
         {
-            return View();
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Preguntas = BD.ListarPreguntas();
+                return View("ABMPreguntas");
+            }
+            else
+            {
+                if (Accion == "Obtener")
+                {
+                    BD.ModificarPregunta(pr);
+                    ViewBag.Preguntas = BD.ListarPreguntas();
+                    return View("ABMPreguntas");
+                }
+                else
+                {
+                    if (Accion == "Insertar")
+                    {
+                        BD.InsertarPregunta(pr);
+                        ViewBag.Preguntas = BD.ListarPreguntas();
+                        return View("ABMPreguntas");
+                    }
+                }
+                ViewBag.Preguntas = BD.ListarPreguntas();
+                return View("ABMPreguntas");
+            }
+
         }
+         
     }
 }

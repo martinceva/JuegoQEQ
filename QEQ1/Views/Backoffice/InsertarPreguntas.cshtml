@@ -1,0 +1,18 @@
+﻿@using QEQ1.Models
+@model  Preguntas
+@{
+    ViewBag.Title = "InsertarPreguntas";
+}
+
+<h2>InsertarPreguntas</h2>
+
+@using (Html.BeginForm("EdicionPreguntas", "Backoffice", FormMethod.Post))
+{
+    <tr>
+        <td> @Html.Label("TextoPregunta")</td>
+        <td> @Html.TextBoxFor(x => x.TextoPregunta)</td>
+        <td> @Html.ValidationMessageFor(x => x.TextoPregunta)</td>
+        <input type="hidden" name="Accion" value="@ViewBag.Accion" />
+        <input type="submit" value="Finalizar" />
+    </tr>
+}
