@@ -82,7 +82,7 @@ namespace QEQ1.Models
             bool c = false;
             SqlConnection conexion = conectar();
             SqlCommand consulta = conexion.CreateCommand();
-            consulta.CommandText = "Sp_ModificarCategoria";
+            consulta.CommandText = "sp_ModificarCategoria";
             consulta.CommandType = System.Data.CommandType.StoredProcedure;
             consulta.Parameters.AddWithValue("@pId", f.IDCategoria);
             consulta.Parameters.AddWithValue("@pNombreCategoria", f.NombreCategoria);
@@ -134,7 +134,7 @@ namespace QEQ1.Models
             return a;
         }
 
-        public static bool Registrarse(Usuario A)
+        public bool Registrarse(Usuario A)
         {
             bool a = false;
             Usuario x = new Usuario();
@@ -149,35 +149,31 @@ namespace QEQ1.Models
             consulta.Parameters.AddWithValue("@pPuntaje", 0);
             int regsAfectados = consulta.ExecuteNonQuery();
             desconectar(conexion);
-            if (regsAfectados >= 1)
+            if (regsAfectados == 1)
             {
                 a = true;
             }
             return a;
         }
 
-        public bool admin(int Id)
+        public string admin(Usuario a)
         {
-            bool val = false;
+            string rolusuario = "";
             SqlConnection conexion = conectar();
             SqlCommand consulta = conexion.CreateCommand();
-            consulta.CommandText = "sp_ObtenerUsuarios";
+            consulta.CommandText = "sp_RolUsuario";
             consulta.CommandType = System.Data.CommandType.StoredProcedure;
-            consulta.Parameters.AddWithValue("@pIDusuario", Id);
+            consulta.Parameters.AddWithValue("@pMail", a.Email);
+            consulta.Parameters.AddWithValue("@pContraseña", a.Contraseña);
             SqlDataReader Lector = consulta.ExecuteReader();
-            Lector.Read();
-            if(Lector!=null)
+            if(Lector.Read() != false)
             {
-                string rolusuario = Lector["Rol"].ToString();
-                if(rolusuario == "Admin")
-                {
-                    val = true;
-                }
+                rolusuario = Lector.Read().ToString();
             }
             desconectar(conexion);
-            return val;
+            return rolusuario;
         }
-   
+
         /*public static bool EliminarUsuario(int IDUsuario)
         {
             bool b = false;
@@ -212,93 +208,5 @@ namespace QEQ1.Models
             return c;
         }
         */
-        public static bool InsertarPregunta(Preguntas p)
-        {
-            bool a = false;
-            SqlConnection conexion = conectar();
-            SqlCommand consulta = conexion.CreateCommand();
-            consulta.CommandText = "sp_InsertarPreguntas";
-            consulta.CommandType = System.Data.CommandType.StoredProcedure;
-            consulta.Parameters.AddWithValue("@pTextoPregunta", p.TextoPregunta);
-            int regsAfectados = consulta.ExecuteNonQuery();
-            desconectar(conexion);
-            if (regsAfectados == 1)
-            {
-                a = true;
-            }
-            return a;
-        }
-        public static bool EliminarPregunta(int IDPregunta)
-        {
-            bool b = false;
-            SqlConnection conexion = conectar();
-            SqlCommand consulta = conexion.CreateCommand();
-            consulta.CommandText = "sp_EliminarPreguntas";
-            consulta.CommandType = System.Data.CommandType.StoredProcedure;
-            consulta.Parameters.AddWithValue("@pId", IDPregunta);
-            int regsAfectados = consulta.ExecuteNonQuery();
-            desconectar(conexion);
-            if (regsAfectados == 1)
-            {
-                b = true;
-            }
-            return b;
-        }
-        public static bool ModificarPregunta(Preguntas p)
-        {
-            bool c = false;
-            SqlConnection conexion = conectar();
-            SqlCommand consulta = conexion.CreateCommand();
-            consulta.CommandText = "Sp_ModificarPreguntas";
-            consulta.CommandType = System.Data.CommandType.StoredProcedure;
-            consulta.Parameters.AddWithValue("@pId", p.IDPregunta);
-            consulta.Parameters.AddWithValue("@pTextoPregunta", p.TextoPregunta);
-            int regsAfectados = consulta.ExecuteNonQuery();
-            desconectar(conexion);
-            if (regsAfectados == 1)
-            {
-                c = true;
-            }
-            return c;
-        }
-        public static List<Preguntas> ListarPreguntas()
-        {
-            List<Preguntas> listaPreguntas = new List<Preguntas>();
-            SqlConnection conexion = conectar();
-            SqlCommand consulta = conexion.CreateCommand();
-            consulta.CommandText = "sp_ListarPreguntas";
-            consulta.CommandType = System.Data.CommandType.StoredProcedure;
-            SqlDataReader dataReader = consulta.ExecuteReader();
-            while (dataReader.Read())
-            {
-                int IDPregunta = Convert.ToInt32(dataReader["IDPregunta"]);
-                string TextoPregunta = (dataReader["TextoPregunta"].ToString());
-                listaPreguntas.Add(new Preguntas(IDPregunta, TextoPregunta));
-            }
-            desconectar(conexion);
-            return listaPreguntas;
-        }
-        public static Preguntas ObtenerPreguntas(int IDPregunta)
-        {
-            int x = 0;
-            String y = null;
-            SqlConnection conexion = conectar();
-            SqlCommand consulta = conexion.CreateCommand();
-            consulta.CommandText = "sp_ObtenerPreguntas";
-            consulta.CommandType = System.Data.CommandType.StoredProcedure;
-            consulta.Parameters.AddWithValue("@pID", IDPregunta);
-            SqlDataReader dataReader = consulta.ExecuteReader();
-            while (dataReader.Read())
-            {
-
-                x = Convert.ToInt32(dataReader["IDpregunta"]);
-                y = (dataReader["TextoPregunta"].ToString());
-
-
-            }
-            Preguntas a = new Preguntas(x, y);
-            desconectar(conexion);
-            return a;
-        }
     }
 }

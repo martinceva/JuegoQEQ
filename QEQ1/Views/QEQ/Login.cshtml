@@ -3,39 +3,35 @@
 @{
     ViewBag.Title = "Login";
 }
-
+@if (ViewBag.EstaMal != null)
+{
+    <div class="alert alert-danger">
+        <h4>@ViewBag.EstaMal</h4>
+    </div>
+}
 <h2>Login</h2>
 <br />
-<body style="background-color:powderblue;"></body>
-    @using (Html.BeginForm("Funciono", "QEQ", FormMethod.Post))
-    {
+<body style="background-color:powderblue;">
+</body>
+@using (Html.BeginForm("Funciono", "QEQ", FormMethod.Post))
+{
 
-        <table style="width:50%">
-            <tr>
+    <table style="width:50%">
+        <tr>
+            <td> @Html.LabelFor(x => x.Email)</td>
+            <td> @Html.TextBoxFor(x => x.Email)</td>
+            <td> @Html.ValidationMessageFor(x => x.Email)</td>
+        </tr>
+        <tr>
+            <td> @Html.LabelFor(x => x.Contraseña) </td>
+            <td>@Html.PasswordFor(x => x.Contraseña)</td>
+            <td>@Html.ValidationMessageFor(x => x.Contraseña) </td>
+        </tr>
+    </table>
+    <br />
+    <a href="@Url.Action("Register","QEQ")">Registrate aca</a>
+    <br />
+    <input type="submit" value="Loguearme" />
 
-                @if (ViewBag.EstaMal != null)
-                {
-                <div class="alert alert-danger">
-                    <h4>@ViewBag.EstaMal</h4>
-                </div>
-                        }
-
-                        <td> @Html.LabelFor(x => x.Email)</td>
-                        <td> @Html.TextBoxFor(x => x.Email)</td>
-                        <td> @Html.ValidationMessageFor(x => x.Email)</td>
-                </tr>
-            <tr>
-                <td> @Html.LabelFor(x => x.Contraseña) </td>
-                <td>@Html.PasswordFor(x => x.Contraseña)</td>
-                <td>@Html.ValidationMessageFor(x => x.Contraseña) </td>
-            </tr>
-        </table>
-        <br />
-        <a href="@Url.Action("Register","QEQ")">Registrate aca</a>
-        <br />
-        <input type="submit" value="Loguearme" />
-
-    }
-
-
+}
 
