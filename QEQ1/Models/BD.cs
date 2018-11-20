@@ -82,7 +82,7 @@ namespace QEQ1.Models
             bool c = false;
             SqlConnection conexion = conectar();
             SqlCommand consulta = conexion.CreateCommand();
-            consulta.CommandText = "Sp_ModificarCategoria";
+            consulta.CommandText = "sp_ModificarCategoria";
             consulta.CommandType = System.Data.CommandType.StoredProcedure;
             consulta.Parameters.AddWithValue("@pId", f.IDCategoria);
             consulta.Parameters.AddWithValue("@pNombreCategoria", f.NombreCategoria);
@@ -134,7 +134,7 @@ namespace QEQ1.Models
             return a;
         }
 
-        public static bool Registrarse(Usuario A)
+        public bool Registrarse(Usuario A)
         {
             bool a = false;
             Usuario x = new Usuario();
@@ -149,35 +149,28 @@ namespace QEQ1.Models
             consulta.Parameters.AddWithValue("@pPuntaje", 0);
             int regsAfectados = consulta.ExecuteNonQuery();
             desconectar(conexion);
-            if (regsAfectados >= 1)
+            if (regsAfectados == 1)
             {
                 a = true;
             }
             return a;
         }
 
-        public bool admin(int Id)
+        public string admin(Usuario a)
         {
-            bool val = false;
+            string rolusuario = "";
             SqlConnection conexion = conectar();
             SqlCommand consulta = conexion.CreateCommand();
-            consulta.CommandText = "sp_ObtenerUsuarios";
+            consulta.CommandText = "sp_RolUsuario";
             consulta.CommandType = System.Data.CommandType.StoredProcedure;
-            consulta.Parameters.AddWithValue("@pIDusuario", Id);
+            consulta.Parameters.AddWithValue("@pID", a.IDUsuario);
             SqlDataReader Lector = consulta.ExecuteReader();
             Lector.Read();
-            if(Lector!=null)
-            {
-                string rolusuario = Lector["Rol"].ToString();
-                if(rolusuario == "Admin")
-                {
-                    val = true;
-                }
-            }
+            rolusuario = Lector["Rol"].ToString();
             desconectar(conexion);
-            return val;
+            return rolusuario;
         }
-   
+
         /*public static bool EliminarUsuario(int IDUsuario)
         {
             bool b = false;

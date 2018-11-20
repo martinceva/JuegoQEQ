@@ -3,16 +3,14 @@
 @{
     ViewBag.Title = "EdicionPreguntas";
 }
-
 <h2>EdicionPreguntas</h2>
-
 @using (Html.BeginForm("EdicionPreguntas", "Backoffice", FormMethod.Post))
 {
     <tr>
         <td> @Html.Label("Pregunta:")</td>
         <td> @Html.TextBoxFor(x => x.TextoPregunta) @Html.HiddenFor(x => x.IDPregunta)</td>
         <td> @Html.ValidationMessageFor(x => x.TextoPregunta)</td>
-        <input type="hidden" value="@ViewBag.Accion" name="Accion" />
-        <input type="submit" value="Modificar categoria" />
     </tr>
+    <input type="hidden" value="@ViewBag.Accion" name="Accion" />
+    <input type="submit" value="Modificar categoria" />
 }

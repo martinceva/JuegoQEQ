@@ -286,6 +286,7 @@
     <Content Include="Views\Backoffice\ABMPreguntas.cshtml" />
     <Content Include="Views\Backoffice\InsertarPreguntas.cshtml" />
     <Content Include="Views\Backoffice\EdicionPreguntas.cshtml" />
+    <Content Include="Views\QEQ\ConfirmarEliminar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

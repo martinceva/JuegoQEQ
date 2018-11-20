@@ -34,8 +34,7 @@ namespace QEQ1.Models
             set { _Contraseña = value; }
         }
         private string _NomUsuario;
-        [Required(ErrorMessage = "Ingrese un nombre entre 4 y 18 caracteres")]
-        [StringLength(18, MinimumLength = 4)]
+        
         public string NomUsuario
         {
             get { return _NomUsuario; }
