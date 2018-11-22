@@ -171,40 +171,8 @@ namespace QEQ1.Models
             return rolusuario;
         }
 
-        /*public static bool EliminarUsuario(int IDUsuario)
-        {
-            bool b = false;
-            SqlConnection conexion = conectar();
-            SqlCommand consulta = conexion.CreateCommand();
-            consulta.CommandText = "sp_EliminarUsuario";
-            consulta.CommandType = System.Data.CommandType.StoredProcedure;
-            consulta.Parameters.AddWithValue("@pId", IDUsuario);
-            int regsAfectados = consulta.ExecuteNonQuery();
-            desconectar(conexion);
-            if (regsAfectados == 1)
-            {
-                b = true;
-            }
-            return b;
-        }
-        public static bool ModificarUsuario(Usuario f)
-        {
-            bool c = false;
-            SqlConnection conexion = conectar();
-            SqlCommand consulta = conexion.CreateCommand();
-            consulta.CommandText = "sp_ModificarCategoria";
-            consulta.CommandType = System.Data.CommandType.StoredProcedure;
-            consulta.Parameters.AddWithValue("@pId", f.IDCategoria);
-            consulta.Parameters.AddWithValue("@pNombreCategoria", f.NombreCategoria);
-            int regsAfectados = consulta.ExecuteNonQuery();
-            desconectar(conexion);
-            if (regsAfectados == 1)
-            {
-                c = true;
-            }
-            return c;
-        }
-        */
+        
+  
         public static bool InsertarPregunta(Preguntas p)
         {
             bool a = false;
@@ -293,5 +261,98 @@ namespace QEQ1.Models
             desconectar(conexion);
             return a;
         }
+        
+         public static bool InsertarPersonajes(Personajes pe)
+        {
+            bool a = false;
+            SqlConnection conexion = conectar();
+            SqlCommand consulta = conexion.CreateCommand();
+            consulta.CommandText = "sp_InsertarPersonajes";
+            consulta.CommandType = System.Data.CommandType.StoredProcedure;
+            consulta.Parameters.AddWithValue("@pNombrePersonaje", pe.NombrePersonaje);
+            // ver como hacer lo de la foto
+            int regsAfectados = consulta.ExecuteNonQuery();
+            desconectar(conexion);
+            if (regsAfectados == 1)
+            {
+                a = true;
+            }
+            return a;
+        }
+        public static bool EliminarPersonaje(int IDPersonaje)
+        {
+            bool b = false;
+            SqlConnection conexion = conectar();
+            SqlCommand consulta = conexion.CreateCommand();
+            consulta.CommandText = "sp_EliminarPersonajes";
+            consulta.CommandType = System.Data.CommandType.StoredProcedure;
+            consulta.Parameters.AddWithValue("@pId", IDPersonaje);
+            int regsAfectados = consulta.ExecuteNonQuery();
+            desconectar(conexion);
+            if (regsAfectados == 1)
+            {
+                b = true;
+            }
+            return b;
+        }
+        public static bool ModificarPersonaje(Personajes pe)
+        {
+            bool c = false;
+            SqlConnection conexion = conectar();
+            SqlCommand consulta = conexion.CreateCommand();
+            consulta.CommandText = "Sp_ModificarPersonajes";
+            consulta.CommandType = System.Data.CommandType.StoredProcedure;
+            consulta.Parameters.AddWithValue("@pId", pe.IDPersonaje);
+            consulta.Parameters.AddWithValue("@pNombre", pe.NombrePersonaje);
+            // ver como hacer lo de la foto
+            int regsAfectados = consulta.ExecuteNonQuery();
+            desconectar(conexion);
+            if (regsAfectados == 1)
+            {
+                c = true;
+            }
+            return c;
+        }
+        public static List<Personajes> ListarPersonajes()
+        {
+            List<Personajes> listaPersonajes = new List<Personajes>();
+            SqlConnection conexion = conectar();
+            SqlCommand consulta = conexion.CreateCommand();
+            consulta.CommandText = "sp_ListarPersonajes";
+            consulta.CommandType = System.Data.CommandType.StoredProcedure;
+            SqlDataReader dataReader = consulta.ExecuteReader();
+            while (dataReader.Read())
+            {
+                int IDPersonaje = Convert.ToInt32(dataReader["IDpersonaje"]);
+                string NombrePersonaje = (dataReader["Nombre"].ToString());
+                //ver como hacer lo de la foto
+                listaPersonajes.Add(new Personajes(IDPersonaje, NombrePersonaje));
+            }
+            desconectar(conexion);
+            return listaPersonajes;
+        }
+        public static Personajes ObtenerPersonajes (int IDPersonaje)
+        {
+            int x = 0;
+            String y = null;
+            SqlConnection conexion = conectar();
+            SqlCommand consulta = conexion.CreateCommand();
+            consulta.CommandText = "sp_ObtenerPersonajes";
+            consulta.CommandType = System.Data.CommandType.StoredProcedure;
+            consulta.Parameters.AddWithValue("@pIDpersonaje", IDPersonaje);
+            SqlDataReader dataReader = consulta.ExecuteReader();
+            while (dataReader.Read())
+            {
+
+                x = Convert.ToInt32(dataReader["IDpersonaje"]);
+                y = (dataReader["TextoNombre"].ToString());
+
+
+            }
+            Personajes a = new Personajes(x, y);
+            desconectar(conexion);
+            return a;
+        }
+         
     }
 }

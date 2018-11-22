@@ -15,7 +15,7 @@ namespace QEQ1.Controllers
         }
         
         public ActionResult ABMCategorias(Categorias ct)
-        {
+        { //ver como asignar los personajes a las categorias
             ViewBag.Categorias = BD.ListarCategorias();
             return View();
         }
@@ -110,7 +110,7 @@ namespace QEQ1.Controllers
         }
         [HttpPost]
         public ActionResult EdicionPreguntas(Preguntas pr, string Accion)
-        {
+        { //ver como asignar las preguntas a los personajes
             if (!ModelState.IsValid)
             {
                 ViewBag.Preguntas = BD.ListarPreguntas();
@@ -138,6 +138,70 @@ namespace QEQ1.Controllers
             }
 
         }
+
+        
+         public ActionResult ABMPersonajes(Personajes pe)
+        {
+            ViewBag.Personajes = BD.ListarPersonajes();
+            return View();
+        }
+        public ActionResult InsertarPersonajes(string Accion)
+        {
+            ViewBag.Accion = Accion;
+            return View();
+        }
+
+        public ActionResult FormPersonaje(string Accion, int Id)
+        {
+            ViewBag.Preguntas = BD.ListarPersonajes();
+            ViewBag.Accion = Accion;
+            if (Accion == "Obtener")
+            {
+                Personajes pe = BD.ObtenerPersonajes(Id);
+                return View("EdicionPersonajes", pe);
+            }
+            else
+            {
+                if (Accion == "Eliminar")
+                {
+                    BD.EliminarPersonaje(Id);
+                   
+                    return View("ABMPersonajes");
+                }
+            }
+            return View("EdicionPersonajes");
+        }
+        [HttpPost]
+        public ActionResult EdicionPersonajes(Personajes pe, string Accion)
+        {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Personajes = BD.ListarPersonajes();
+                return View("ABMPersonajes");
+            }
+            else
+            {
+                if (Accion == "Obtener")
+                {
+                    BD.ModificarPersonaje(pe);
+                    ViewBag.Personajes = BD.ListarPersonajes();
+                    return View("ABMPersonajes");
+                }
+                else
+                {
+                    if (Accion == "Insertar")
+                    {
+                        BD.InsertarPersonajes(pe);
+                        ViewBag.Personajes = BD.ListarPersonajes();
+                        return View("ABMPersonajes");
+                    }
+                }
+                ViewBag.Personajes = BD.ListarPersonajes();
+                return View("ABMPersonajes");
+            }
+
+        }
          
+
     }
 }

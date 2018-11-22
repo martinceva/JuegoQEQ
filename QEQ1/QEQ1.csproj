@@ -209,6 +209,7 @@
     <Compile Include="Models\Categorias.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Personajes.cs" />
     <Compile Include="Models\Preguntas.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -285,8 +286,10 @@
     <Content Include="Views\Backoffice\InsertarCategorias.cshtml" />
     <Content Include="Views\Backoffice\ABMPreguntas.cshtml" />
     <Content Include="Views\Backoffice\InsertarPreguntas.cshtml" />
-    <Content Include="Views\Backoffice\EdicionPreguntas.cshtml" />
     <Content Include="Views\QEQ\ConfirmarEliminar.cshtml" />
+    <Content Include="Views\Backoffice\ABMPersonajes.cshtml" />
+    <Content Include="Views\Backoffice\InsertarPersonajes.cshtml" />
+    <Content Include="Views\Backoffice\EdicionPersonajes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
