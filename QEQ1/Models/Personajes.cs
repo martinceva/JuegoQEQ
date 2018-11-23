@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.ComponentModel.DataAnnotations;
 
 namespace QEQ1.Models
 {
@@ -9,6 +10,8 @@ namespace QEQ1.Models
     {
         private int _IDPersonaje;
         private string _NombrePersonaje;
+        
+
 
         public int IDPersonaje
         {

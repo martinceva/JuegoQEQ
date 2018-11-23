@@ -24,7 +24,7 @@
         </tr>
         <tr>
             <td><p><strong>Nombre de usuario</strong></p></td>
-            <td>@Html.TextBoxFor(x => x.NomUsuario)</td>
+            <td>@Html.TextBoxFor(x => x.NomUsuario, new { required = "required" })</td>
             <td>@Html.ValidationMessageFor(x => x.NomUsuario) </td>
         </tr>
     </table>

@@ -3,15 +3,15 @@
 @{
     ViewBag.Title = "InsertarCategorias";
 }
-
 <h2>InsertarCategorias</h2>
+@Html.ActionLink("Volver atras", "ABMCategorias", "Backoffice")
 @using (Html.BeginForm("EdicionCategoria", "Backoffice", FormMethod.Post))
 {
-<tr>
-    <td> @Html.Label("NombreCategoria")</td>
-    <td> @Html.TextBoxFor(x => x.NombreCategoria)</td>
-    <td> @Html.ValidationMessageFor(x => x.NombreCategoria)</td>
-    <input type="hidden" name="Accion" value="@ViewBag.Accion" />
-    <input type="submit" value="Finalizar" />
-</tr>
+    <tr>
+        <td> @Html.Label("NombreCategoria")</td>
+        <td> @Html.TextBoxFor(x => x.NombreCategoria, new { required = "required" })</td>
+        <td> @Html.ValidationMessageFor(x => x.NombreCategoria)</td>
+        <input type="hidden" name="Accion" value="@ViewBag.Accion" />
+        <input type="submit" value="Finalizar" />
+    </tr>
 }
