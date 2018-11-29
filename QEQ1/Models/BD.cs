@@ -9,6 +9,7 @@ namespace QEQ1.Models
     public class BD
     {
         public static string connectionString = "Server=10.128.8.16;Database=QEQB01;User ID=QEQB01;Password=QEQB01";
+        public static Usuario guardado = new Usuario();
         private static SqlConnection conectar()
         {
             SqlConnection sqlConectar = new SqlConnection(connectionString);
@@ -23,6 +24,7 @@ namespace QEQ1.Models
         public static Usuario  Login (Usuario A)
         {
             Usuario x = new Usuario();
+            guardado = new Usuario();
             SqlConnection conexion = conectar();
             SqlCommand consulta = conexion.CreateCommand();
             consulta.CommandText = "Sp_login";
@@ -41,6 +43,7 @@ namespace QEQ1.Models
                     x.Email = (dataReader["Email"].ToString());
                 
             }
+            guardado.Rol = x.Rol;
             desconectar(conexion);
             return x;
         }
@@ -353,6 +356,18 @@ namespace QEQ1.Models
             desconectar(conexion);
             return a;
         }
-         
+
+        public static Boolean isAdmin()
+        {
+            if (guardado.Rol == "Admin")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
     }
 }

@@ -3,9 +3,8 @@
 @{
     ViewBag.Title = "ABMPreguntas";
 }
-
 <h2>ABMPreguntas</h2>
-
+@Html.ActionLink("Volver atras", "Menu", "Backoffice")
 @using (Html.BeginForm("FormPregunta", "Backoffice", FormMethod.Post))
 {
     <th>@Html.ActionLink("Insertar Pregunta", "InsertarPreguntas", "Backoffice", new { Accion = "Insertar" }, null)</th>
