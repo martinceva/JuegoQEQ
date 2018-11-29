@@ -272,7 +272,7 @@ namespace QEQ1.Models
             SqlCommand consulta = conexion.CreateCommand();
             consulta.CommandText = "sp_InsertarPersonajes";
             consulta.CommandType = System.Data.CommandType.StoredProcedure;
-            consulta.Parameters.AddWithValue("@pNombrePersonaje", p.NombrePersonaje);
+            consulta.Parameters.AddWithValue("@pNombrePersonaje", pe.NombrePersonaje);
             // ver como hacer lo de la foto
             int regsAfectados = consulta.ExecuteNonQuery();
             desconectar(conexion);
@@ -305,8 +305,8 @@ namespace QEQ1.Models
             SqlCommand consulta = conexion.CreateCommand();
             consulta.CommandText = "Sp_ModificarPersonajes";
             consulta.CommandType = System.Data.CommandType.StoredProcedure;
-            consulta.Parameters.AddWithValue("@pId", p.IDPersonaje);
-            consulta.Parameters.AddWithValue("@pNombre", p.NombrePersonaje);
+            consulta.Parameters.AddWithValue("@pId", pe.IDPersonaje);
+            consulta.Parameters.AddWithValue("@pNombre", pe.NombrePersonaje);
             // ver como hacer lo de la foto
             int regsAfectados = consulta.ExecuteNonQuery();
             desconectar(conexion);
