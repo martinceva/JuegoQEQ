@@ -1,6 +1,22 @@
-﻿
+﻿@using QEQ1.Models
+@model Personajes
 @{
     ViewBag.Title = "EdicionPersonajes";
 }
-<h2>Edicion de Personajes</h2>
-@Html.ActionLink("Volver atras", "ABMPreguntas", "Backoffice")
+<body style="background-color:powderblue;">
+</body>
+<h2>EdicionPersonaje</h2>
+@using (Html.BeginForm("EdicionPersonajes", "Backoffice", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <tr>
+        <td> @Html.Label("Nombre del personaje")</td>
+        <td> @Html.TextBoxFor(x => x.NombrePersonaje) @Html.HiddenFor(x => x.IDPersonaje)</td>
+        <td> @Html.ValidationMessageFor(x => x.NombrePersonaje)</td>
+        <p>Imagen: <img src="@ViewBag.Imagen" height="100" width="100" />
+            @Html.HiddenFor(x => x.UrlDataFoto)
+        </p>
+        <input type="file" name="img" id="img" accept="image/jpg" />
+        <input type="hidden" value="@ViewBag.Accion" name="Accion" />
+        <input type="submit" value="Modificar Personaje" />
+    </tr>
+}

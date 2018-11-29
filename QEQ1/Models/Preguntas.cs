@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.ComponentModel.DataAnnotations;
 
 namespace QEQ1.Models
 {
@@ -10,7 +9,6 @@ namespace QEQ1.Models
     {
         private int _IDPregunta;
         private string _TextoPregunta;
-        
 
         public int IDPregunta
         {

@@ -207,6 +207,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BD.cs" />
     <Compile Include="Models\Categorias.cs" />
+    <Compile Include="Models\ConversionIMG.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Personajes.cs" />
@@ -278,7 +279,7 @@
     <Content Include="Views\QEQ\Funciono.cshtml" />
     <Content Include="Views\QEQ\About.cshtml" />
     <Content Include="Views\QEQ\Instrucciones.cshtml" />
-    <Content Include="Views\Backoffice\EdicionPersonaje.cshtml" />
+    <Content Include="Views\Backoffice\EdicionPersonajes.cshtml" />
     <Content Include="Views\Backoffice\Menu.cshtml" />
     <Content Include="Views\Backoffice\ABMCategorias.cshtml" />
     <Content Include="Views\Backoffice\EdicionCategoria.cshtml" />
@@ -289,7 +290,6 @@
     <Content Include="Views\QEQ\ConfirmarEliminar.cshtml" />
     <Content Include="Views\Backoffice\ABMPersonajes.cshtml" />
     <Content Include="Views\Backoffice\InsertarPersonajes.cshtml" />
-    <Content Include="Views\Backoffice\EdicionPersonajes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

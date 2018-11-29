@@ -1,6 +1,23 @@
-﻿
+﻿@using QEQ1.Models
+@model Personajes
 @{
     ViewBag.Title = "ABMPersonajes";
 }
+
 <h2>ABMPersonajes</h2>
-@Html.ActionLink("Volver atras", "Menu", "Backoffice")
+
+@using (Html.BeginForm("FormPersonaje", "Backoffice", FormMethod.Post))
+{
+    <th>@Html.ActionLink("Insertar Personaje", "InsertarPersonajes", "Backoffice", new { Accion = "Insertar" }, null)</th>
+    <table style="width:100%">
+        @foreach (Personajes pe in ViewBag.Personajes)
+        {
+            <tr>
+                <th>@pe.NombrePersonaje</th>
+                <th><img src="@pe.UrlDataFoto" alt=@pe.NombrePersonaje height="100" width="100"/></th>
+                <th>@Html.ActionLink("Eliminar", "FormPersonaje", "Backoffice", new { Accion = "Eliminar", Id = pe.IDPersonaje }, null)</th>
+                <th>@Html.ActionLink("Modificar", "FormPersonaje", "Backoffice", new { Accion = "Obtener", Id = pe.IDPersonaje }, null)</th>
+            </tr>
+        }
+    </table>
+}

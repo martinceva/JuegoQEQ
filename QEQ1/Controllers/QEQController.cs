@@ -51,6 +51,8 @@ namespace QEQ1.Controllers
                     string rol = j.admin(a);
                     if (rol == "Admin")
                     {
+
+                        Session["Admin"] = true;
                         return View("../Backoffice/Menu");
                     }
                     else

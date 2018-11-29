@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.ComponentModel.DataAnnotations;
 
 namespace QEQ1.Models
 {
@@ -10,8 +9,7 @@ namespace QEQ1.Models
     {
         private int _IDPersonaje;
         private string _NombrePersonaje;
-        
-
+        private string _UrlDataFoto;
 
         public int IDPersonaje
         {
@@ -23,15 +21,22 @@ namespace QEQ1.Models
             get { return _NombrePersonaje; }
             set { _NombrePersonaje = value; }
         }
-        public Personajes (int IDPersonaje, string NombrePersonaje)
+        public string UrlDataFoto
+        {
+            get { return _UrlDataFoto; }
+            set { _UrlDataFoto = value; }
+        }
+        public Personajes (int IDPersonaje, string NombrePersonaje, string UrlDataFoto)
         {
             _IDPersonaje = IDPersonaje;
             _NombrePersonaje = NombrePersonaje;
+            _UrlDataFoto = UrlDataFoto;
         }
         public Personajes()
         {
             IDPersonaje = IDPersonaje;
             NombrePersonaje = NombrePersonaje;
+            UrlDataFoto = UrlDataFoto;
         }
     }
 }

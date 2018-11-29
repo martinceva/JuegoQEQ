@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data.SqlClient;
+using QEQ1.Models;
 
 namespace QEQ1.Models
 {
     public class BD
     {
         public static string connectionString = "Server=10.128.8.16;Database=QEQB01;User ID=QEQB01;Password=QEQB01";
-        public static Usuario guardado = new Usuario();
         private static SqlConnection conectar()
         {
             SqlConnection sqlConectar = new SqlConnection(connectionString);
@@ -24,7 +24,6 @@ namespace QEQ1.Models
         public static Usuario  Login (Usuario A)
         {
             Usuario x = new Usuario();
-            guardado = new Usuario();
             SqlConnection conexion = conectar();
             SqlCommand consulta = conexion.CreateCommand();
             consulta.CommandText = "Sp_login";
@@ -43,7 +42,6 @@ namespace QEQ1.Models
                     x.Email = (dataReader["Email"].ToString());
                 
             }
-            guardado.Rol = x.Rol;
             desconectar(conexion);
             return x;
         }
@@ -265,15 +263,20 @@ namespace QEQ1.Models
             return a;
         }
         
-         public static bool InsertarPersonajes(Personajes pe)
+         public static bool InsertarPersonajes(Personajes pe, string path)
         {
             bool a = false;
+            byte[] picture = null;
+            if (path != null)
+            {
+                picture = ConversionIMG.ConvertirAByteArray(path);
+            }
             SqlConnection conexion = conectar();
             SqlCommand consulta = conexion.CreateCommand();
-            consulta.CommandText = "sp_InsertarPersonajes";
+            consulta.CommandText = "Sp_InsertarPersonajes";
             consulta.CommandType = System.Data.CommandType.StoredProcedure;
-            consulta.Parameters.AddWithValue("@pNombrePersonaje", pe.NombrePersonaje);
-            // ver como hacer lo de la foto
+            consulta.Parameters.AddWithValue("@pNombre", pe.NombrePersonaje);
+            consulta.Parameters.AddWithValue("@pImagen", picture);
             int regsAfectados = consulta.ExecuteNonQuery();
             desconectar(conexion);
             if (regsAfectados == 1)
@@ -298,16 +301,21 @@ namespace QEQ1.Models
             }
             return b;
         }
-        public static bool ModificarPersonaje(Personajes pe)
+        public static bool ModificarPersonaje(Personajes pe, string path)
         {
             bool c = false;
+            byte[] picture = null;
+            if (path != null)
+            {
+                picture = ConversionIMG.ConvertirAByteArray(path);
+            }
             SqlConnection conexion = conectar();
             SqlCommand consulta = conexion.CreateCommand();
             consulta.CommandText = "Sp_ModificarPersonajes";
             consulta.CommandType = System.Data.CommandType.StoredProcedure;
             consulta.Parameters.AddWithValue("@pId", pe.IDPersonaje);
             consulta.Parameters.AddWithValue("@pNombre", pe.NombrePersonaje);
-            // ver como hacer lo de la foto
+            consulta.Parameters.AddWithValue("@pImagen", picture);
             int regsAfectados = consulta.ExecuteNonQuery();
             desconectar(conexion);
             if (regsAfectados == 1)
@@ -328,8 +336,9 @@ namespace QEQ1.Models
             {
                 int IDPersonaje = Convert.ToInt32(dataReader["IDpersonaje"]);
                 string NombrePersonaje = (dataReader["Nombre"].ToString());
-                //ver como hacer lo de la foto
-                listaPersonajes.Add(new Personajes(IDPersonaje, NombrePersonaje));
+                byte[] z = (byte[])dataReader["Imagen"];
+                string UrlDataFoto = ConversionIMG.ConvertirAURLData(z);
+                listaPersonajes.Add(new Personajes(IDPersonaje, NombrePersonaje, UrlDataFoto));
             }
             desconectar(conexion);
             return listaPersonajes;
@@ -338,36 +347,23 @@ namespace QEQ1.Models
         {
             int x = 0;
             String y = null;
+            byte[] z = null;
+            string w;
             SqlConnection conexion = conectar();
             SqlCommand consulta = conexion.CreateCommand();
             consulta.CommandText = "sp_ObtenerPersonajes";
             consulta.CommandType = System.Data.CommandType.StoredProcedure;
             consulta.Parameters.AddWithValue("@pIDpersonaje", IDPersonaje);
             SqlDataReader dataReader = consulta.ExecuteReader();
-            while (dataReader.Read())
-            {
-
-                x = Convert.ToInt32(dataReader["IDpersonaje"]);
-                y = (dataReader["TextoNombre"].ToString());
-
-
-            }
-            Personajes a = new Personajes(x, y);
+            dataReader.Read();
+            x = Convert.ToInt32(dataReader["IDpersonaje"]);
+            y = (dataReader["Nombre"].ToString());
+            z = (byte[])dataReader["Imagen"]; 
+            w = ConversionIMG.ConvertirAURLData(z);
+            Personajes a = new Personajes(x, y, w);
             desconectar(conexion);
             return a;
         }
-
-        public static Boolean isAdmin()
-        {
-            if (guardado.Rol == "Admin")
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
+         
     }
 }
