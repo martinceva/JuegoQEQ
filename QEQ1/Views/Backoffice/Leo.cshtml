@@ -1,0 +1,19 @@
+﻿@using QEQ1.Models
+@model Personajes
+
+@{
+    ViewBag.Title = "Leo";
+}
+@using (Html.BeginForm("EdicionPersonajes", "Backoffice", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <table>
+        <tr>
+            <td> @Html.Label("Nombre del personaje")</td>
+            <td> @Html.TextBoxFor(x => x.NombrePersonaje)</td>
+            <td> @Html.ValidationMessageFor(x => x.NombrePersonaje)</td>
+            <td> @Html.HiddenFor(x => x.IDPersonaje)</td>
+        </tr>
+    </table>
+}
+<h2>Leo</h2>
+
