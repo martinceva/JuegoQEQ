@@ -1,0 +1,24 @@
+﻿@using QEQ1.Models
+@model Categorias
+@{
+    ViewBag.Title = "ABMCategorias";
+}
+<body style="background-color:powderblue;">
+</body>
+<h2>ABMCategorias</h2>
+@Html.ActionLink("Volver atras", "Menu", "Backoffice")
+<br />
+@using (Html.BeginForm("FormCategoria", "Backoffice", FormMethod.Post))
+{
+    <th>@Html.ActionLink("Insertar Categoria", "InsertarCategorias", "Backoffice", new { Accion = "Insertar" }, null)</th>
+    <table style="width:100%">
+        @foreach (Categorias ct in ViewBag.Categorias)
+        {
+            <tr>
+                <th>@ct.NombreCategoria</th>
+                <th>@Html.ActionLink("Eliminar", "FormCategoria", "Backoffice", new { Accion = "Eliminar", Id = ct.IDCategoria }, null)</th>
+                <th>@Html.ActionLink("Modificar", "FormCategoria", "Backoffice", new { Accion = "Obtener", Id = ct.IDCategoria }, null)</th>
+            </tr>
+        }
+    </table>
+}

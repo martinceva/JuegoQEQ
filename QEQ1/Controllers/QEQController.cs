@@ -16,6 +16,7 @@ namespace QEQ1.Controllers
         }
         public ActionResult Login()
         {
+
             return View();
         }
         public ActionResult About()
@@ -31,27 +32,61 @@ namespace QEQ1.Controllers
             return View();
         }
 
-        
+
         [HttpPost]
         public ActionResult Funciono(Usuario x)
         {
 
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                return View("Login",x );
+                return View("Login", x);
             }
             else
             {
-                Usuario a = BD.Login(x);            
+                Usuario a = BD.Login(x);
                 if (a.Email != null)
                 {
                     Session["User"] = a;
-                    return View("Funciono");
+                    BD j = new BD();
+                    string rol = j.admin(a);
+                    if (rol == "Admin")
+                    {
+                        return View("../Backoffice/Menu");
+                    }
+                    else
+                    {
+                        return View("Funciono");
+                    }
                 }
-                ViewBag.EstaMal = "El usuario o la contraseña ingresados son incorrectas"; ; 
-                return View("Login");
+                else
+                {
+                    ViewBag.EstaMal = "El usuario o la contraseña ingresados son incorrectas"; ;
+                    return View("Login", x);
+                }
+
             }
         }
-        
+
+        public ActionResult CuentaCreada(Usuario x)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("Register", x);
+            }
+            else
+            {
+                BD b = new BD();
+                bool funciono = b.Registrarse(x);
+                if (funciono == true)
+                {
+                    return View("CuentaCreada");
+                }
+                else
+                {
+                    return View("Register", x);
+                }
+            }
+
+        }
     }
 }

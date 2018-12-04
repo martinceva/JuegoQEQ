@@ -1,0 +1,20 @@
+﻿@using QEQ1.Models
+@{
+    ViewBag.Title = "FormularioCarPregs";
+}
+
+<h2>FormularioCarPregs</h2>
+@Html.ActionLink("Volver atras", "CargarRespuestas", "Backoffice")
+<br />
+<p>@ViewBag.Texto</p>
+
+@using (Html.BeginForm("OperacionesRespuestas", "Backoffice", FormMethod.Post))
+{
+    foreach (Personajes p in ViewBag.Personajes)
+    {
+        <input type="checkbox" value=@p.IDPersonaje name="Personajes" />
+        <label>@p.NombrePersonaje</label>
+    }
+    <input type="hidden" value=@ViewBag.IdP name="IdPreg" />
+    <input type="submit" value="Cargar" />
+}

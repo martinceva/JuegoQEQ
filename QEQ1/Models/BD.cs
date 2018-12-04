@@ -9,6 +9,7 @@ namespace QEQ1.Models
     public class BD
     {
         public static string connectionString = "Server=10.128.8.16;Database=QEQB01;User ID=QEQB01;Password=QEQB01";
+        public static Usuario guardado = new Usuario();
         private static SqlConnection conectar()
         {
             SqlConnection sqlConectar = new SqlConnection(connectionString);
@@ -23,6 +24,7 @@ namespace QEQ1.Models
         public static Usuario  Login (Usuario A)
         {
             Usuario x = new Usuario();
+            guardado = new Usuario();
             SqlConnection conexion = conectar();
             SqlCommand consulta = conexion.CreateCommand();
             consulta.CommandText = "Sp_login";
@@ -41,6 +43,7 @@ namespace QEQ1.Models
                     x.Email = (dataReader["Email"].ToString());
                 
             }
+            guardado.Rol = x.Rol;
             desconectar(conexion);
             return x;
         }
@@ -113,21 +116,28 @@ namespace QEQ1.Models
         }
         public static Categorias ObtenerCategorias(int IDCategoria)
         {
-
+            int x = 0;
+            String y = null;
             SqlConnection conexion = conectar();
             SqlCommand consulta = conexion.CreateCommand();
             consulta.CommandText = "sp_ObtenerCategorias";
             consulta.CommandType = System.Data.CommandType.StoredProcedure;
             consulta.Parameters.AddWithValue("@pID", IDCategoria);
             SqlDataReader dataReader = consulta.ExecuteReader();
-            int ID = Convert.ToInt32(dataReader["IDcategoria"]);
-            string NombreC = (dataReader["NombreCategoria"].ToString());
-            Categorias Obtener = new Categorias(ID, NombreC);
+            while (dataReader.Read())
+            {
+
+                x =  Convert.ToInt32(dataReader["IDcategoria"]);
+                y = (dataReader["NombreCategoria"].ToString());
+            
+
+            }
+            Categorias a = new Categorias(x, y);
             desconectar(conexion);
-            return Obtener;
+            return a;
         }
 
-        public static bool Registrarse(Usuario A)
+        public bool Registrarse(Usuario A)
         {
             bool a = false;
             Usuario x = new Usuario();
@@ -148,14 +158,48 @@ namespace QEQ1.Models
             }
             return a;
         }
-        /*public static bool EliminarUsuario(int IDUsuario)
+
+        public string admin(Usuario a)
+        {
+            string rolusuario = "";
+            SqlConnection conexion = conectar();
+            SqlCommand consulta = conexion.CreateCommand();
+            consulta.CommandText = "sp_RolUsuario";
+            consulta.CommandType = System.Data.CommandType.StoredProcedure;
+            consulta.Parameters.AddWithValue("@pID", a.IDUsuario);
+            SqlDataReader Lector = consulta.ExecuteReader();
+            Lector.Read();
+            rolusuario = Lector["Rol"].ToString();
+            desconectar(conexion);
+            return rolusuario;
+        }
+
+        
+  
+        public static bool InsertarPregunta(Preguntas p)
+        {
+            bool a = false;
+            SqlConnection conexion = conectar();
+            SqlCommand consulta = conexion.CreateCommand();
+            consulta.CommandText = "sp_InsertarPreguntas";
+            consulta.CommandType = System.Data.CommandType.StoredProcedure;
+            consulta.Parameters.AddWithValue("@pTextoPregunta", p.TextoPregunta);
+            int regsAfectados = consulta.ExecuteNonQuery();
+            desconectar(conexion);
+            if (regsAfectados == 1)
+            {
+                a = true;
+            }
+            return a;
+        }
+        public static bool EliminarPregunta(int IDPregunta)
         {
             bool b = false;
             SqlConnection conexion = conectar();
             SqlCommand consulta = conexion.CreateCommand();
-            consulta.CommandText = "sp_EliminarUsuario";
+            consulta.CommandText = "sp_EliminarPreguntas";
             consulta.CommandType = System.Data.CommandType.StoredProcedure;
-            consulta.Parameters.AddWithValue("@pId", IDUsuario);
+            consulta.Parameters.AddWithValue("@pId", IDPregunta);
             int regsAfectados = consulta.ExecuteNonQuery();
             desconectar(conexion);
             if (regsAfectados == 1)
@@ -164,15 +208,15 @@ namespace QEQ1.Models
             }
             return b;
         }
-        public static bool ModificarUsuario(Usuario f)
+        public static bool ModificarPregunta(Preguntas p)
         {
             bool c = false;
             SqlConnection conexion = conectar();
             SqlCommand consulta = conexion.CreateCommand();
-            consulta.CommandText = "sp_ModificarCategoria";
+            consulta.CommandText = "Sp_ModificarPreguntas";
             consulta.CommandType = System.Data.CommandType.StoredProcedure;
-            consulta.Parameters.AddWithValue("@pId", f.IDCategoria);
-            consulta.Parameters.AddWithValue("@pNombreCategoria", f.NombreCategoria);
+            consulta.Parameters.AddWithValue("@pId", p.IDPregunta);
+            consulta.Parameters.AddWithValue("@pTextoPregunta", p.TextoPregunta);
             int regsAfectados = consulta.ExecuteNonQuery();
             desconectar(conexion);
             if (regsAfectados == 1)
@@ -181,6 +225,174 @@ namespace QEQ1.Models
             }
             return c;
         }
-        */
+        public static List<Preguntas> ListarPreguntas()
+        {
+            List<Preguntas> listaPreguntas = new List<Preguntas>();
+            SqlConnection conexion = conectar();
+            SqlCommand consulta = conexion.CreateCommand();
+            consulta.CommandText = "sp_ListarPreguntas";
+            consulta.CommandType = System.Data.CommandType.StoredProcedure;
+            SqlDataReader dataReader = consulta.ExecuteReader();
+            while (dataReader.Read())
+            {
+                int IDPregunta = Convert.ToInt32(dataReader["IDPregunta"]);
+                string TextoPregunta = (dataReader["TextoPregunta"].ToString());
+                listaPreguntas.Add(new Preguntas(IDPregunta, TextoPregunta));
+            }
+            desconectar(conexion);
+            return listaPreguntas;
+        }
+        public static Preguntas ObtenerPreguntas(int IDPregunta)
+        {
+            int x = 0;
+            String y = null;
+            SqlConnection conexion = conectar();
+            SqlCommand consulta = conexion.CreateCommand();
+            consulta.CommandText = "sp_ObtenerPreguntas";
+            consulta.CommandType = System.Data.CommandType.StoredProcedure;
+            consulta.Parameters.AddWithValue("@pID", IDPregunta);
+            SqlDataReader dataReader = consulta.ExecuteReader();
+            while (dataReader.Read())
+            {
+
+                x = Convert.ToInt32(dataReader["IDpregunta"]);
+                y = (dataReader["TextoPregunta"].ToString());
+
+
+            }
+            Preguntas a = new Preguntas(x, y);
+            desconectar(conexion);
+            return a;
+        }
+        
+         public static bool InsertarPersonajes(Personajes pe)
+        {
+            bool a = false;
+            SqlConnection conexion = conectar();
+            SqlCommand consulta = conexion.CreateCommand();
+            consulta.CommandText = "sp_InsertarPersonajes";
+            consulta.CommandType = System.Data.CommandType.StoredProcedure;
+            consulta.Parameters.AddWithValue("@pNombrePersonaje", pe.NombrePersonaje);
+            // ver como hacer lo de la foto
+            int regsAfectados = consulta.ExecuteNonQuery();
+            desconectar(conexion);
+            if (regsAfectados == 1)
+            {
+                a = true;
+            }
+            return a;
+        }
+        public static bool EliminarPersonaje(int IDPersonaje)
+        {
+            bool b = false;
+            SqlConnection conexion = conectar();
+            SqlCommand consulta = conexion.CreateCommand();
+            consulta.CommandText = "sp_EliminarPersonajes";
+            consulta.CommandType = System.Data.CommandType.StoredProcedure;
+            consulta.Parameters.AddWithValue("@pId", IDPersonaje);
+            int regsAfectados = consulta.ExecuteNonQuery();
+            desconectar(conexion);
+            if (regsAfectados == 1)
+            {
+                b = true;
+            }
+            return b;
+        }
+        public static bool ModificarPersonaje(Personajes pe)
+        {
+            bool c = false;
+            SqlConnection conexion = conectar();
+            SqlCommand consulta = conexion.CreateCommand();
+            consulta.CommandText = "Sp_ModificarPersonajes";
+            consulta.CommandType = System.Data.CommandType.StoredProcedure;
+            consulta.Parameters.AddWithValue("@pId", pe.IDPersonaje);
+            consulta.Parameters.AddWithValue("@pNombre", pe.NombrePersonaje);
+            // ver como hacer lo de la foto
+            int regsAfectados = consulta.ExecuteNonQuery();
+            desconectar(conexion);
+            if (regsAfectados == 1)
+            {
+                c = true;
+            }
+            return c;
+        }
+        public static List<Personajes> ListarPersonajes()
+        {
+            List<Personajes> listaPersonajes = new List<Personajes>();
+            SqlConnection conexion = conectar();
+            SqlCommand consulta = conexion.CreateCommand();
+            consulta.CommandText = "sp_ListarPersonajes";
+            consulta.CommandType = System.Data.CommandType.StoredProcedure;
+            SqlDataReader dataReader = consulta.ExecuteReader();
+            while (dataReader.Read())
+            {
+                int IDPersonaje = Convert.ToInt32(dataReader["IDpersonaje"]);
+                string NombrePersonaje = (dataReader["Nombre"].ToString());
+                //ver como hacer lo de la foto
+                listaPersonajes.Add(new Personajes(IDPersonaje, NombrePersonaje));
+            }
+            desconectar(conexion);
+            return listaPersonajes;
+        }
+        public static Personajes ObtenerPersonajes (int IDPersonaje)
+        {
+            int x = 0;
+            String y = null;
+            SqlConnection conexion = conectar();
+            SqlCommand consulta = conexion.CreateCommand();
+            consulta.CommandText = "sp_ObtenerPersonajes";
+            consulta.CommandType = System.Data.CommandType.StoredProcedure;
+            consulta.Parameters.AddWithValue("@pIDpersonaje", IDPersonaje);
+            SqlDataReader dataReader = consulta.ExecuteReader();
+            while (dataReader.Read())
+            {
+
+                x = Convert.ToInt32(dataReader["IDpersonaje"]);
+                y = (dataReader["TextoNombre"].ToString());
+
+
+            }
+            Personajes a = new Personajes(x, y);
+            desconectar(conexion);
+            return a;
+        }
+
+        public static Boolean isAdmin()
+        {
+            if (guardado.Rol == "Admin")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public static void CargarPregsxPersonaje (int[] Personajes, int IdPreg)
+        {
+            SqlConnection conexion = conectar();
+            SqlCommand consulta = conexion.CreateCommand();
+            consulta.CommandText = "Sp_EliminarPersonajesxPreg";
+            consulta.CommandType = System.Data.CommandType.StoredProcedure;
+            consulta.Parameters.AddWithValue("@pIDPregunta", IdPreg);
+            consulta.ExecuteNonQuery();
+            desconectar(conexion);
+            foreach (int IDP in Personajes)
+            {
+                SqlConnection conexion2 = conectar();
+                SqlCommand consulta2 = conexion2.CreateCommand();
+                consulta2.CommandText = "Sp_InsertarPersonajesxPreg";
+                consulta2.CommandType = System.Data.CommandType.StoredProcedure;
+                consulta2.Parameters.AddWithValue("@pIDPregunta", IdPreg);
+                consulta2.Parameters.AddWithValue("@pIDPersonaje", IDP);
+                consulta2.ExecuteNonQuery();
+                desconectar(conexion2);
+            }
+
+
+
+        }
+
     }
 }

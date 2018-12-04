@@ -1,0 +1,21 @@
+﻿@using QEQ1.Models
+@model Preguntas
+@{
+    ViewBag.Title = "Cargar Respuestas";
+}
+
+<h2>CargarRespuestas</h2>
+@Html.ActionLink("Volver atras", "Menu", "Backoffice")
+<br />
+
+<table style="width:100%">
+    @foreach (Preguntas pr in ViewBag.Preguntas)
+    {
+        <tr>
+            <th>@pr.TextoPregunta</th>
+            <th>@Html.ActionLink("Cargar", "FormularioCarPregs", "Backoffice", new {  Id = pr.IDPregunta, Texto = pr.TextoPregunta }, null)</th>
+            
+        </tr>
+    }
+</table>
+

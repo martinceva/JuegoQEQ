@@ -1,16 +1,18 @@
 ﻿@using QEQ1.Models
+@model Categorias
 @{
     ViewBag.Title = "EdicionCategoria";
 }
-<body style="background-color:powderblue;"></body>
-    <h2>EdicionCategoria</h2>
-
-<table style="width:100%">
-    @foreach (Categorias ct in ViewBag.Categorias)
-    {
+<h2>EdicionCategoria</h2>
+@Html.ActionLink("Volver atras", "ABMCategorias", "Backoffice")
+<br />
+@using (Html.BeginForm("EdicionCategoria", "Backoffice", FormMethod.Post))
+{
     <tr>
-        <th>@ct.NombreCategoria</th>
-        <th>@Html.ActionLink("Eliminar", "EdicionCategoria", "Backoffice", new { Accion = "Eliminar", Id = ct.IDCategoria }, null)</th>
+        <td> @Html.Label("Nombre de la categoria")</td>
+        <td> @Html.TextBoxFor(x => x.NombreCategoria, new { required = "required" }) @Html.HiddenFor(x => x.IDCategoria)</td>
+        <td> @Html.ValidationMessageFor(x => x.NombreCategoria)</td>
+        <input type="hidden" value="@ViewBag.Accion" name="Accion" />
+        <input type="submit" value="Modificar categoria" />
     </tr>
-    }
-</table>
+}
